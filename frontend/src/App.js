@@ -29,6 +29,8 @@ function App() {
     
   }
 
+  
+
   const fetchUserAddToCart = async() => {
     const dataResponse = await fetch(SummaryApi.countAddToCartProduct.url,{
       method : SummaryApi.countAddToCartProduct.method,
