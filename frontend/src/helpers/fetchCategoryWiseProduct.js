@@ -15,7 +15,8 @@ const fetchCategoryWiseProduct = async(category) => {
 
 
   const dataCategory = await response.json()
-
+  console.log("dataCategory ", dataCategory);
+  
   return dataCategory
    
 }
