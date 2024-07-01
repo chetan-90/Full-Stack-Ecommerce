@@ -5,6 +5,7 @@ async function userLogout(req, res){
             secure: true,
             sameSite : 'None'
           };
+          
 
         res.clearCookie("token",tokenOption)
 
