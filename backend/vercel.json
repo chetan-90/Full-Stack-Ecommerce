@@ -10,7 +10,7 @@
     "routes" : [
         {
             "src" : "/(.*)",
-            "dest" : "/payment-full-stack-ecommerce.vercel.app"
+            "dest" : "/"
         }
     ]
 }
