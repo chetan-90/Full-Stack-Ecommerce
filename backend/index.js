@@ -15,16 +15,10 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser())
 
 
-
-
 app.use("/api",router)
 
 const PORT =  8080 || process.env.PORT
 
-app.get("/", (req, res)=>{
-    
-    res.send("hello");
-})
 
 
 connectDB().then(()=>{
