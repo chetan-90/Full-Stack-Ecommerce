@@ -1,4 +1,5 @@
 import Adminpanel from "../pages/Adminpanel";
+import AllOrder from "../pages/AllOrder";
 import AllProducts from "../pages/AllProducts";
 import AllUsers from "../pages/AllUsers";
 import Cancel from "../pages/Cancel";
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
                     {
                         path : "all-products",
                         element : <AllProducts/>
+                    },
+                    {
+                        path : "all-orders",
+                        element : <AllOrder/>
                     },
                     
                 ]
