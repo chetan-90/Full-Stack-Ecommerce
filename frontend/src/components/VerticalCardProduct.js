@@ -1,18 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import fetchCategoryWiseProduct from '../helpers/fetchCategoryWiseProduct'
-import displayINRCurrency from '../helpers/displayCurrency'
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import scrollTop from '../helpers/scrollTop'
+import displayINRCurrency from '../helpers/displayCurrency'
 import Context from '../context'
 import addToCart from '../helpers/addToCart'
 
-const VerticalCardProduct = ({category, heading}) => {
-    const [data,setData] = useState([])
-    const [loading,setLoading] = useState(true)
+const VerticalCard = ({loading,data=[]}) => {
     const loadingList = new Array(13).fill(null)
-
-    const [scroll,setScroll] = useState(0)
-    const scrollElement = useRef()
 
     const { fetchUserAddToCart } = useContext(Context)
 
@@ -20,39 +14,9 @@ const VerticalCardProduct = ({category, heading}) => {
         await addToCart(e,id)
        fetchUserAddToCart()
     }
-
-    const fetchData = async() =>{
-        setLoading(true)
-        const categoryProduct = await fetchCategoryWiseProduct(category)
-        setLoading(false)
-        console.log("categoryProduct",categoryProduct);
-        
-
-        setData(categoryProduct?.data)
-    }
-
-    useEffect(()=>{
-        fetchData()
-    },[])
-
-    const scrollRight = () =>{
-        scrollElement.current.scrollLeft += 300
-    }
-    const scrollLeft = () =>{
-        scrollElement.current.scrollLeft -= 300
-    }
-
-
   return (
-    <div className='container mx-auto px-4 my-6 relative'>
+    <div className='grid grid-cols-[repeat(auto-fit,minmax(260px,300px))] justify-center md:justify-between md:gap-4 overflow-x-scroll scrollbar-none transition-all' >
 
-            <h2 className='text-2xl font-semibold py-4'>{heading}</h2>
-
-                
-           <div className='flex items-center gap-4 md:gap-6 overflow-x-scroll scrollbar-none transition-all' ref={scrollElement}>
-
-            <button  className='bg-white shadow-md rounded-full p-1 absolute left-0 text-lg hidden md:block' onClick={scrollLeft}><FaAngleLeft/></button>
-            <button  className='bg-white shadow-md rounded-full p-1 absolute right-0 text-lg hidden md:block' onClick={scrollRight}><FaAngleRight/></button> 
 
            {
 
@@ -77,9 +41,9 @@ const VerticalCardProduct = ({category, heading}) => {
                 ) : (
                     data.map((product,index)=>{
                         return(
-                            <Link to={"product/"+product?._id} className='w-full min-w-[280px]  md:min-w-[320px] max-w-[280px] md:max-w-[320px]  bg-white rounded-sm shadow '>
+                            <Link to={"/product/"+product?._id} className='w-full min-w-[280px]  md:min-w-[300px] max-w-[280px] md:max-w-[300px]  bg-white rounded-sm shadow ' onClick={scrollTop}>
                                 <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
-                                    <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply' alt='imag'/>
+                                    <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply' alt='productImage'/>
                                 </div>
                                 <div className='p-4 grid gap-3'>
                                     <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black'>{product?.productName}</h2>
@@ -97,10 +61,7 @@ const VerticalCardProduct = ({category, heading}) => {
                 
             }
            </div>
-            
-
-    </div>
   )
 }
 
-export default VerticalCardProduct
+export default VerticalCard
