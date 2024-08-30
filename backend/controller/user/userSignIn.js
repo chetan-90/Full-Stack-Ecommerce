@@ -5,16 +5,16 @@ const userModel = require("../../models/userModel");
 async function userSignInController(req, res) {
   try {
     const { email, password} = req.body
-    
-
-    const user = await userModel.findOne({email})
-   
     if (!email) {
       throw new Error("Please provide email");
     }
     if (!password) {
       throw new Error("Please provide password");
     }
+
+    const user = await userModel.findOne({email})
+   
+    
     if (!user) {
       throw new Error("User not found");
     }
@@ -32,9 +32,12 @@ async function userSignInController(req, res) {
 
       const tokenOption = {
         httpOnly: true,
-        secure: true,
-        sameSite : 'None'
+        secure: process.env.NODE_ENV === 'production',
+        sameSite : 'None',
+        path: '/',
       };
+      console.log("process.env.NODE_ENV",process.env.NODE_ENV);
+      
 
       res.cookie("token", token, tokenOption).status(200).json({
         message: "Login successfully",

@@ -10,12 +10,10 @@ const fetchCategoryWiseProduct = async(category) => {
         category : category
     })
   })
-  // Example of checking the URL
-     console.log("SummaryApi.categoryWiseProduct.url  ",SummaryApi.categoryWiseProduct.url); // Should print the correct API URL
 
 
   const dataCategory = await response.json()
-  console.log("dataCategory ", dataCategory);
+ 
   
   return dataCategory
    

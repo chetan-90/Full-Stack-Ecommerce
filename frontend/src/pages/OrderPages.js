@@ -15,7 +15,7 @@ const OrderPages = () => {
     const responseData = await response.json();
 
     setData(responseData.data);
-    console.log("order Page", responseData);
+    
   };
 
   useEffect(() => {

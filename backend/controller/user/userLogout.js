@@ -3,7 +3,8 @@ async function userLogout(req, res){
         const tokenOption = {
             httpOnly: true,
             secure: true,
-            sameSite : 'None'
+            sameSite : 'None',
+            path: '/',
           };
           
 
