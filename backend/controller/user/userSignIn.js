@@ -27,16 +27,16 @@ async function userSignInController(req, res) {
         email: user.email,
       };
       const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET_KEY, {
-        expiresIn: 60 * 60 * 72,
+        expiresIn: 60 * 60 ,
       });
 
       const tokenOption = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
         sameSite : 'None',
         path: '/',
       };
-      console.log("process.env.NODE_ENV",process.env.NODE_ENV);
+      
       
 
       res.cookie("token", token, tokenOption).status(200).json({
