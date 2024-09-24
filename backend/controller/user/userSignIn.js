@@ -30,14 +30,14 @@ async function userSignInController(req, res) {
         expiresIn: 60 * 60 ,
       });
 
+      const isProduction = process.env.NODE_ENV === 'production';
+
       const tokenOption = {
         httpOnly: true,
-        secure: true,
-        sameSite : 'None',
+        secure: isProduction,  // Secure in production, not in development
+        sameSite: isProduction ? 'None' : 'Lax',  // SameSite=None for production
         path: '/',
       };
-      
-      
 
       res.cookie("token", token, tokenOption).status(200).json({
         message: "Login successfully",

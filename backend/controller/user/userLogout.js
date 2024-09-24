@@ -2,10 +2,10 @@ async function userLogout(req, res){
     try{
         const tokenOption = {
             httpOnly: true,
-            secure: true,
-            sameSite : 'None',
+            secure: process.env.NODE_ENV === 'production',  // Secure in production
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',  // None for cross-site cookies
             path: '/',
-          };
+        };
           
 
         res.clearCookie("token",tokenOption)
